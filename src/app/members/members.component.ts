@@ -13,12 +13,20 @@ export class MembersComponent implements OnInit {
 
   watchLists: WatchList[] = [];
   watchList: WatchList = {
-    id: 0,
+    id: "",
     displayName: "",
     fullName: "",
     threshold: "",
     previewColor: ""
   };
+
+  watchListMembers: WatchListMember[] = [];
+  watchListMember: WatchListMember = {
+    id: "",
+    displayName: "",
+    fullName: "",
+    note: ""
+  }
 
   constructor(private httpService: HttpService) { }
 
@@ -31,8 +39,7 @@ export class MembersComponent implements OnInit {
 
 
   ngOnInit(): void {        
-    this.httpService.getWatchLists().subscribe((result:any) => {
-      console.log('watch list: ' + this.watchLists);
+    this.httpService.getWatchLists().subscribe((result:any) => {      
       var self = this;
       result.items.forEach(function(element: any) {
         self.watchLists.push({
@@ -44,11 +51,26 @@ export class MembersComponent implements OnInit {
         });
       });
     });
+
+    this.httpService.getWatchListMembers().subscribe((results: any) =>{
+      var self = this;
+      results.items.forEach(function(element: any){
+        self.watchListMembers.push({
+          id: element.id,
+          displayName: element.displayName,
+          fullName: element.fullName,
+          note: element.note
+        });
+      });
+    });
   }
 
-  onWatchListClick(watchList: WatchList): void{
-    console.log('Submit Watchlst clicked');
+  onWatchListClick(watchList: WatchList): void{    
     this.httpService.createWatchList(watchList, this.watchListCreated);
+  }
+
+  onWatchListMemberClick(watchListMember: WatchListMember): void{
+    this.httpService.createWatchListMember(watchListMember);
   }
 
 }
