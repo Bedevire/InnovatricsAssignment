@@ -21,7 +21,7 @@
 </div>
   
   <div id="watchListForm">
-    <h2>Watchlist form</h2>
+    <h2>Watchlist form</h2>    
     <p>
       <span>Display Name: </span>
       <input id="watchListDisplayName" type="text" [(ngModel)] = "watchList.displayName" />
@@ -42,6 +42,15 @@
     <div id="memberForm">
       <h2>Member form</h2>
       <p>
+        <span>WatchList</span>
+        <select id="ddlWatchList" [(ngModel)]="selectedWatchList" (change)="onWatchListChange()">
+            <option id=""></option>
+            <option *ngFor="let watchList of watchLists" [ngValue]="watchList.id" id="{{ watchList.id }}">
+                <span>{{ watchList.displayName }}</span>
+            </option>
+        </select>
+      </p>
+      <p>
         <span>Display Name: </span>
         <input id="memberDisplayName" type="text" [(ngModel)] = "watchListMember.displayName" />
       </p>
@@ -53,8 +62,13 @@
         <span>Note: </span>
         <input  id="memberNote" type="text" [(ngModel)] = "watchListMember.note" />
       </p>
+      <div class="text-center">
+        <input class="form-control" type="file" (change)="onFileUploadChange($event)">
+        <button class="btn btn-success hidden" (click)="onUpload()">Upload</button>
+      </div>
       <p>
-        <input id="submitMember" type="button" value="Submit" (click)="onWatchListMemberClick(watchListMember)" />
+        <input id="submitMember" type="button" class="hidden" value="Submit Member" (click)="onWatchListMemberClick(watchListMember)" />
+        <input id="submitMember" type="button" value="Register Member" (click)="onWatchListMemberReisterClick(selectedWatchList)" />
       </p>
   
   

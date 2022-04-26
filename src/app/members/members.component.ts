@@ -3,13 +3,19 @@ import { WatchListMember } from "../dal/watchlistmember"
 import { WatchList } from '../dal/watchlist';
 import { HttpService } from '../http.service';
 
-
 @Component({
   selector: 'app-members',
   templateUrl: './members.component.html',
   styleUrls: ['./members.component.css']
 })
 export class MembersComponent implements OnInit {
+
+  selectedWatchList: string = "";
+  // Variable to store shortLink from api response
+  shortLink: string = "";
+  loading: boolean = false; // Flag variable
+  file: File = {} as File;
+  
 
   watchLists: WatchList[] = [];
   watchList: WatchList = {
@@ -28,15 +34,10 @@ export class MembersComponent implements OnInit {
     note: ""
   }
 
-  constructor(private httpService: HttpService) { }
+  constructor(
+    private httpService: HttpService) { }
 
   //@ViewChild(HttpService) myService;
-
-
-  watchListCreated(result: any): void{
-    //console.log('WatchList created');
-  }
-
 
   ngOnInit(): void {        
     this.httpService.getWatchLists().subscribe((result:any) => {      
@@ -65,6 +66,27 @@ export class MembersComponent implements OnInit {
     });
   }
 
+  watchListCreated(result: any): void{
+    //console.log('WatchList created');
+  }
+
+
+
+  onFileUploadChange(event: any){
+    this.file = event.target.files[0];
+  }
+
+  onUpload(){
+    //debugger;
+    console.log('Uploading file: ' + this.file)
+    /*this.fileUploadService.upload(this.file).subscribe((event:any) => {
+      if(typeof(event) === 'object'){
+        this.shortLink = event.link;
+        this.loading = false;
+      }
+    });*/
+  }
+
   onWatchListClick(watchList: WatchList): void{    
     this.httpService.createWatchList(watchList, this.watchListCreated);
   }
@@ -73,4 +95,11 @@ export class MembersComponent implements OnInit {
     this.httpService.createWatchListMember(watchListMember);
   }
 
+  onWatchListMemberReisterClick(selectedWatchList: string): void{
+    this.httpService.registerMemberToWatchList(selectedWatchList, this.file);
+  }
+
+  onWatchListChange(){
+    console.log('WatchList selected: ' + this.selectedWatchList);
+  }
 }
