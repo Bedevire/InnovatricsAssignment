@@ -15,6 +15,7 @@ export class MembersComponent implements OnInit {
   shortLink: string = "";
   loading: boolean = false; // Flag variable
   file: File = {} as File;
+  watchListId: string = "";
   
 
   watchLists: WatchList[] = [];
@@ -40,37 +41,9 @@ export class MembersComponent implements OnInit {
   //@ViewChild(HttpService) myService;
 
   ngOnInit(): void {        
-    this.httpService.getWatchLists().subscribe((result:any) => {      
-      var self = this;
-      result.items.forEach(function(element: any) {
-        self.watchLists.push({
-          id: element.id,
-          displayName: element.displayName,
-          fullName: element.fullName,
-          threshold: element.threshold,
-          previewColor: element.previewColor,
-        });
-      });
-    });
-
-    this.httpService.getWatchListMembers().subscribe((results: any) =>{
-      var self = this;
-      results.items.forEach(function(element: any){
-        self.watchListMembers.push({
-          id: element.id,
-          displayName: element.displayName,
-          fullName: element.fullName,
-          note: element.note
-        });
-      });
-    });
+    this.getWatchLists();
+    this.getWatchListMembers();
   }
-
-  watchListCreated(result: any): void{
-    //console.log('WatchList created');
-  }
-
-
 
   onFileUploadChange(event: any){
     this.file = event.target.files[0];
@@ -87,15 +60,65 @@ export class MembersComponent implements OnInit {
     });*/
   }
 
-  onWatchListClick(watchList: WatchList): void{    
-    this.httpService.createWatchList(watchList, this.watchListCreated);
+  
+  // Watch Lists
+
+  getWatchLists(){
+    this.httpService.getWatchLists().subscribe((result:any) => {      
+      var self = this;
+      result.items.forEach(function(element: any) {
+        self.watchLists.push({
+          id: element.id,
+          displayName: element.displayName,
+          fullName: element.fullName,
+          threshold: element.threshold,
+          previewColor: element.previewColor,
+        });
+      });
+    });
   }
 
-  onWatchListMemberClick(watchListMember: WatchListMember): void{
+  createWatchList(watchList: WatchList): void{    
+    this.httpService.createWatchList(watchList).subscribe((result: any) => {
+      window.location.reload();
+    });
+  }
+
+  deleteWatchList(id:string){    
+    this.httpService.deleteWatchList(id).subscribe((result: any) => {
+      window.location.reload();
+    });
+  }
+
+
+  // WatchList members
+
+  getWatchListMembers(){
+    this.httpService.getWatchListMembers().subscribe((results: any) =>{
+      var self = this;
+      results.items.forEach(function(element: any){
+        self.watchListMembers.push({
+          id: element.id,
+          displayName: element.displayName,
+          fullName: element.fullName,
+          note: element.note
+        });
+      });
+    });
+  }
+
+  deleteWatchListMember(id:string){
+    console.log('Delete watchlist member');
+    this.httpService.deleteWatchListMember(id).subscribe((result: any) => {
+      window.location.reload();
+    });
+  }
+
+  createWatchListMember(watchListMember: WatchListMember): void{
     this.httpService.createWatchListMember(watchListMember);
   }
 
-  onWatchListMemberReisterClick(selectedWatchList: string): void{
+  registerMemberToWatchList(selectedWatchList: string): void{
     this.httpService.registerMemberToWatchList(selectedWatchList, this.file);
   }
 

@@ -23,7 +23,7 @@ export class HttpService {
     return this.httpClient.get('http://localhost:8098/api/v1/Watchlists');
   } 
 
-  createWatchList(watchList: WatchList, success: (result: any) => any){
+  createWatchList(watchList: WatchList){
     watchList.previewColor = '#aaaaaa';    
     const httpOptions = {
       headers: new HttpHeaders({
@@ -32,9 +32,18 @@ export class HttpService {
       })
     };
 
-    this.httpClient.post('http://localhost:8098/api/v1/Watchlists', watchList, httpOptions).subscribe(res => {
-      success(res);
-    });
+    return this.httpClient.post('http://localhost:8098/api/v1/Watchlists', watchList, httpOptions);
+  }
+
+  deleteWatchList(id: string){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+
+    return this.httpClient.delete('http://localhost:8098/api/v1/Watchlists/' + id);
   }
 
 
@@ -57,6 +66,10 @@ export class HttpService {
     });
   }
 
+  deleteWatchListMember(id: string){
+    return this.httpClient.delete('http://localhost:8098/api/v1/WatchlistMembers/' + id);
+  }
+
   registerMemberToWatchList(watchListId: string, imageFile: File){
     
     var self = this;
@@ -74,7 +87,7 @@ export class HttpService {
     reader.addEventListener('load', function(){
       if(reader.result != null){
         imageData = reader.result as string;
-        //imageData = imageData.substring(imageData.indexOf('base64') + 7)
+        imageData = imageData.substring(imageData.indexOf('base64') + 7)
         debugger;
     
         var json: any = {

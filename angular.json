@@ -30,7 +30,7 @@
               "src/styles.css"
             ],
             "scripts": [
-              "node-modules/jquery/dist/jquery.js",
+              
               "src/assets/js/app.js"
             ]
           },
