@@ -1,6 +1,6 @@
     
-<div>
-    <div id="watchListForm" >
+<div id="watchList" class="row">
+    <div id="watchListForm" class="block">
         <h2>Watchlist form</h2>    
         <p>
             <label class="formLabel">Display Name: </label>
@@ -22,18 +22,20 @@
         </p>  
     </div>
 
+    <div class="block"></div>
+
     <div id="watchlists">
         <h2>Existing Watchlists</h2>
         <ul class="itemGrid">
             <li>
-                <span class="badge">ID</span>
+                <span class="badge guid">ID</span>
                 <span class="name">Name</span>
                 <span class="">Full Name</span>
                 <span class="">Threshold</span>
-                <span></span>>
+                <span></span>
             </li>
             <li *ngFor="let watchList of watchLists">
-                <span class="badge">{{ watchList.id }}</span>
+                <span class="badge guid">{{ watchList.id }}</span>
                 <span class="name">{{ watchList.displayName }}</span>
                 <span class="">{{ watchList.fullName }}</span>
                 <span class="">{{ watchList.threshold }}</span>
@@ -44,55 +46,83 @@
 </div>
 <br class="clear" />
 
-<div>
-    <div id="memberForm">
-        <h2>Member form</h2>
+
+<div id="watchlistMember" class="row">
+    <div id="registerMember" class="block">
+        <h2>Register Watchlist member</h2>
         <p>
-        <span>WatchList</span>
-        <select id="ddlWatchList" [(ngModel)]="selectedWatchList" (change)="onWatchListChange()">
-            <option id=""></option>
-            <option *ngFor="let watchList of watchLists" [ngValue]="watchList.id" id="{{ watchList.id }}">
-                <span>{{ watchList.displayName }}</span>
-            </option>
-        </select>
+            <span>WatchList</span>
+            <br class="clear" />
+            <select id="ddlWatchList" [(ngModel)]="selectedWatchList1" (change)="onWatchListChange()">
+                <option id=""></option>
+                <option *ngFor="let watchList of watchLists" [ngValue]="watchList.id" >
+                    <span>{{ watchList.displayName }}</span>
+                </option>
+            </select>
         </p>
         <p>
-        <span>Display Name: </span>
-        <br />
-        <input id="memberDisplayName" type="text" [(ngModel)] = "watchListMember.displayName" />
-        </p>
-        <p>
-        <span>Full Name: </span>
-        <br />
-        <input id="memberFullName" type="text" [(ngModel)] = "watchListMember.fullName" />
-        </p>
-        <p>
-        <span>Note: </span>
-        <br />
-        <input  id="memberNote" type="text" [(ngModel)] = "watchListMember.note" />
+            <span>Member</span>
+            <br class="clear" />
+            <select id="ddlWatchListMember" [(ngModel)]="selectedMember" (change)="onWatchListMemberChange()">
+                <option id=""></option>
+                <option *ngFor="let watchListMember of watchListMembers" [ngValue]="watchListMember.id">
+                    <span>{{ watchListMember.displayName }}</span>
+                </option>
+            </select>
         </p>
         <div class="text-center">
-        <input class="form-control" type="file" (change)="onFileUploadChange($event)">
-        <button class="btn btn-success hidden" (click)="onUpload()">Upload</button>
+            <input class="form-control" type="file" (change)="onFileUploadChange($event)">
+            <button class="btn btn-success hidden" (click)="onUpload()">Upload</button>
         </div>
         <p>
-        <input id="submitMember" type="button" class="hidden" value="Submit Member" (click)="createWatchListMember(watchListMember)" />
-        <button id="registerMember" type="button" (click)="registerMemberToWatchList(selectedWatchList)" >Register Member</button>
+            <button id="registerMember" type="button" (click)="registerMemberToWatchList()" >Register Member</button>
         </p>
     </div>
 
-    <div id="members">
+    <div id="addMember" class="block">
+        <h2>Add Member</h2>
+        <p>
+            <span>WatchList</span>
+            <br class="clear" />
+            <select id="ddlWatchList" [(ngModel)]="selectedWatchList2" (change)="onWatchListChange()">
+                <option id=""></option>
+                <option *ngFor="let watchList of watchLists" [ngValue]="watchList.id" id="{{ watchList.id }}">
+                    <span>{{ watchList.displayName }}</span>
+                </option>
+            </select>
+        </p>
+        <p>
+            <span>Display Name: </span>
+            <br />
+            <input id="memberDisplayName" type="text" [(ngModel)] = "watchListMember.displayName" />
+        </p>
+        <p>
+            <span>Full Name: </span>
+            <br />
+            <input id="memberFullName" type="text" [(ngModel)] = "watchListMember.fullName" />
+        </p>
+        <p>
+            <span>Note: </span>
+            <br />
+            <input  id="memberNote" type="text" [(ngModel)] = "watchListMember.note" />
+        </p>            
+        <p>
+            <button id="submitMember" type="button" class="" (click)="createWatchListMember(watchListMember)" >Submit Member</button>                
+        </p>
+    </div>
+
+    <div id="members" class="block2">
         <h2>Existing Watchlist members</h2>
         <ul class="itemGrid">
             <li>
-                <span class="badge">ID</span>
+                <span class="badge guid">ID</span>
                 <span class="name">Name</span>
                 <span class="">Full Name</span>
-                <span class="">Threshold</span>
+                <span class="">Note</span>
                 <span></span>
             </li>
             <li *ngFor="let watchListMember of watchListMembers">
-                <span class="badge">{{ watchListMember.id }}</span>
+                <span class="badge guid">{{ watchListMember.id }}</span>
                 <span class="name">{{ watchListMember.displayName }}</span>
                 <span class="">{{ watchListMember.fullName }}</span>
                 <span class="">{{ watchListMember.note }}</span>
@@ -101,6 +131,8 @@
         </ul>
     </div>
 </div>
- 
+<br class="clear" />
 
-  
+
+
+

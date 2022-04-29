@@ -70,7 +70,7 @@ export class HttpService {
     return this.httpClient.delete('http://localhost:8098/api/v1/WatchlistMembers/' + id);
   }
 
-  registerMemberToWatchList(watchListId: string, imageFile: File){
+  registerMemberToWatchList(memberId: string, watchListId: string, imageFile: File){
     
     var self = this;
 
@@ -91,7 +91,7 @@ export class HttpService {
         debugger;
     
         var json: any = {
-          "id": "",
+          "id": memberId,
           "images": [
             {
               "faceId": "",
