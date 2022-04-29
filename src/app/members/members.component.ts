@@ -10,7 +10,10 @@ import { HttpService } from '../http.service';
 })
 export class MembersComponent implements OnInit {
 
-  selectedWatchList: string = "";
+  selectedWatchList1: string = "";
+  selectedWatchList2: string = "";
+  selectedMember: string = "";
+
   // Variable to store shortLink from api response
   shortLink: string = "";
   loading: boolean = false; // Flag variable
@@ -118,11 +121,15 @@ export class MembersComponent implements OnInit {
     this.httpService.createWatchListMember(watchListMember);
   }
 
-  registerMemberToWatchList(selectedWatchList: string): void{
-    this.httpService.registerMemberToWatchList(selectedWatchList, this.file);
+  registerMemberToWatchList(): void{
+    this.httpService.registerMemberToWatchList(this.selectedMember, this.selectedWatchList1, this.file);
   }
 
   onWatchListChange(){
-    console.log('WatchList selected: ' + this.selectedWatchList);
+    console.log('WatchList selected: ' + this.selectedWatchList2);
+  }
+
+  onWatchListMemberChange(){
+    console.log('WatchList Member selected: ' + this.selectedMember);
   }
 }
