@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { WatchListMember } from "../dal/watchlistmember"
 import { WatchList } from '../dal/watchlist';
+import { MatchResult } from '../dal/matchresult';
 import { HttpService } from '../http.service';
 
 @Component({
@@ -12,16 +13,23 @@ export class MembersComponent implements OnInit {
 
   selectedWatchList1: string = "";
   selectedWatchList2: string = "";
+  selectedWatchList3: string = "";
   selectedMember: string = "";
+  threshold: number = 0;
 
   // Variable to store shortLink from api response
   shortLink: string = "";
   loading: boolean = false; // Flag variable
   file: File = {} as File;
+  file12: File = {} as File;
   watchListId: string = "";
+  watchListId2: string = "";
   
 
   watchLists: WatchList[] = [];
+  watchListMembers: WatchListMember[] = [];
+  matchResults: MatchResult[] = [];
+
   watchList: WatchList = {
     id: "",
     displayName: "",
@@ -30,7 +38,6 @@ export class MembersComponent implements OnInit {
     previewColor: ""
   };
 
-  watchListMembers: WatchListMember[] = [];
   watchListMember: WatchListMember = {
     id: "",
     displayName: "",
@@ -131,5 +138,86 @@ export class MembersComponent implements OnInit {
 
   onWatchListMemberChange(){
     console.log('WatchList Member selected: ' + this.selectedMember);
+  }
+
+
+  // WatchList search
+  search(){
+    var self = this;
+
+    var imageData: string = "";
+    const reader = new FileReader();
+
+    reader.addEventListener('load', function(){
+      if(reader.result != null){
+        imageData = reader.result as string;
+        imageData = imageData.substring(imageData.indexOf('base64') + 7)
+
+        var json: any = {
+          
+            "image": {
+              "data": imageData
+            },
+            "watchlistIds": [
+              self.selectedWatchList3
+            ],
+            "threshold": 40,
+            "maxResultCount": 1,
+            "faceDetectorConfig": {
+              "minFaceSize": 35,
+              "maxFaceSize": 600,
+              "maxFaces": 20,
+              "confidenceThreshold": 450
+            },
+            "faceDetectorResourceId": "cpu",
+            "templateGeneratorResourceId": "cpu",
+            "faceMaskConfidenceRequest": {
+              "faceMaskThreshold": 3000
+            },
+            "faceFeaturesConfig": {
+              "age": true,
+              "gender": true,
+              "faceMask": true,
+              "noseTip": true,
+              "yawAngle": true,
+              "pitchAngle": true,
+              "rollAngle": true
+            }      
+        };
+        
+        self.httpService.searchWatchList(json).subscribe((result: any) => {
+          
+          result.forEach(function(element: any){
+            element.matchResults.forEach(function(matchElement: any){
+              self.matchResults.push({
+                score: matchElement.score,
+                displayName: matchElement.displayName,
+                fullName: matchElement.fullName,
+                watchlistDisplayName: matchElement.watchlistDisplayName,
+                watchlistFullName: matchElement.watchlistFullName,
+                watchlistId: matchElement.watchlistId,
+                watchlistMemberId: matchElement.watchlistMemberId,
+
+                age: element.age,
+                gender: element.gender,
+                rightEyeX: element.rightEyeX,
+                rightEyeY: element.rightEyeY,
+                leftEyeX: element.leftEyeX,
+                leftEyeY: element.leftEyeY
+              });
+            });
+          });
+        });
+
+      }
+      else{
+      }
+      
+    }, false);
+  
+    if(this.file){
+      reader.readAsDataURL(this.file);
+    }
+
   }
 }

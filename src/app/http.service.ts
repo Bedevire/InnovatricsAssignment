@@ -125,7 +125,8 @@ export class HttpService {
 
   }
 
-  searchWatchList(watchListId: string){
+  searchWatchList(json: string){
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -133,40 +134,9 @@ export class HttpService {
       })
     };
 
-    var json: any = {
-      
-        "image": {
-          "data": "fghfgh"
-        },
-        "watchlistIds": [
-          watchListId
-        ],
-        "threshold": 40,
-        "maxResultCount": 1,
-        "faceDetectorConfig": {
-          "minFaceSize": 35,
-          "maxFaceSize": 600,
-          "maxFaces": 20,
-          "confidenceThreshold": 450
-        },
-        "faceDetectorResourceId": "cpu",
-        "templateGeneratorResourceId": "cpu",
-        "faceMaskConfidenceRequest": {
-          "faceMaskThreshold": 3000
-        },
-        "faceFeaturesConfig": {
-          "age": true,
-          "gender": true,
-          "faceMask": true,
-          "noseTip": true,
-          "yawAngle": true,
-          "pitchAngle": true,
-          "rollAngle": true
-        }      
-    };
 
-    this.httpClient.post('http://localhost:8098/api/v1//api/v1/Watchlists/Search', json, httpOptions).subscribe(res => {
+    return this.httpClient.post('http://localhost:8098/api/v1/Watchlists/Search', json, httpOptions);
 
-    });
+     
   }
 }

@@ -25,7 +25,7 @@
     <div class="block"></div>
 
     <div id="watchlists">
-        <h2>Existing Watchlists</h2>
+        <h2>Watchlists</h2>
         <ul class="itemGrid">
             <li>
                 <span class="badge guid">ID</span>
@@ -112,7 +112,7 @@
     </div>
 
     <div id="members" class="block2">
-        <h2>Existing Watchlist members</h2>
+        <h2>Watchlist members</h2>
         <ul class="itemGrid">
             <li>
                 <span class="badge guid">ID</span>
@@ -134,5 +134,52 @@
 <br class="clear" />
 
 
+<div id="watchListSearch" class="row">
+    <div id="searchForm" class="block">
+        <h2>WatchList Search</h2>
+        <p>
+            <span class="formLabel">WatchList</span>
+            <br />
+            <select id="ddlWatchList" [(ngModel)]="selectedWatchList3" (change)="onWatchListChange()">
+                <option id=""></option>
+                <option *ngFor="let watchList of watchLists" [ngValue]="watchList.id" >
+                    <span>{{ watchList.displayName }}</span>
+                </option>
+            </select>
+        </p>
+        <p>
+           <span class="formLabel">Threshold</span>
+           <br />
+           <input id="memberDisplayName" type="number" [(ngModel)] = "threshold" />
+        </p>
+        <div class="text-center">
+            <input class="form-control" type="file" (change)="onFileUploadChange($event)">
+            <button class="btn btn-success hidden" (click)="onUpload()">Upload</button>
+        </div>
+        <p>
+            <button id="btnSearch" type="button" (click)="search()" >Search</button>
+        </p>
+    </div>
+    <div class="block"></div>
 
+    <div id="searchResults">
+        <h2>Results</h2>
+        <ul class="itemGrid">
+            <li>
+                <span class="badge guid">Name</span>
+                <span class="name">Age</span>
+                <span>Score</span>
+                <span>Left Eye</span>
+                <span>Right Eye</span>
+            </li>
+            <li *ngFor="let matchResult of matchResults">
+                <span class="badge guid">{{ matchResult.age }}</span>
+                <span class="name">{{ matchResult.fullName }}</span>
+                <span>{{ matchResult.score }}</span>
+                <span>{{ matchResult.leftEyeX }} : {{ matchResult.leftEyeY }}</span>
+                <span>{{ matchResult.rightEyeX }} : {{ matchResult.rightEyeY }}</span>
+            </li>
+        </ul>
+    </div>
+</div>
 
