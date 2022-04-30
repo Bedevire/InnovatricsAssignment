@@ -7,11 +7,15 @@ import { HttpClientXsrfModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { MembersComponent } from './members/members.component';
+import { WatchlistRegistrationComponent } from './watchlist-registration/watchlist-registration.component';
+import { WatchlistSearchComponent } from './watchlist-search/watchlist-search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MembersComponent
+    MembersComponent,
+    WatchlistRegistrationComponent,
+    WatchlistSearchComponent
   ],
   imports: [
     FormsModule,
