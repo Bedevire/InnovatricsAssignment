@@ -15,20 +15,18 @@ export class MembersComponent implements OnInit {
   selectedWatchList1: string = "";
   selectedWatchList2: string = "";
   selectedWatchList3: string = "";
+  selectedWatchList4: string = "";
   selectedMember: string = "";
   threshold: number = 0;
 
-  // Variable to store shortLink from api response
-  shortLink: string = "";
-  loading: boolean = false; // Flag variable
   file: File = {} as File;
   file12: File = {} as File;
   watchListId: string = "";
   watchListId2: string = "";
-  
 
   watchLists: WatchList[] = [];
   watchListMembers: WatchListMember[] = [];
+  watchListRegistrations: WatchListMember[] = [];
   matchResults: MatchResult[] = [];
 
   watchList: WatchList = {
@@ -60,16 +58,9 @@ export class MembersComponent implements OnInit {
   }
 
   onUpload(){
-    //debugger;
     console.log('Uploading file: ' + this.file)
-    /*this.fileUploadService.upload(this.file).subscribe((event:any) => {
-      if(typeof(event) === 'object'){
-        this.shortLink = event.link;
-        this.loading = false;
-      }
-    });*/
   }
-
+  
   
   // Watch Lists
 
@@ -105,9 +96,24 @@ export class MembersComponent implements OnInit {
 
   getWatchListMembers(){
     this.httpService.getWatchListMembers().subscribe((results: any) =>{
-      var self = this;
+      var self = this;      
       results.items.forEach(function(element: any){
         self.watchListMembers.push({
+          id: element.id,
+          displayName: element.displayName,
+          fullName: element.fullName,
+          note: element.note
+        });
+      });      
+    });
+  }
+  
+  getWatchListRegistrations(){
+    this.watchListRegistrations = [];
+    this.httpService.getWatchListRegistrations(this.selectedWatchList4).subscribe((result: any) => {
+      var self = this;
+      result.items.forEach(function(element: any){
+        self.watchListRegistrations.push({
           id: element.id,
           displayName: element.displayName,
           fullName: element.fullName,
@@ -139,6 +145,7 @@ export class MembersComponent implements OnInit {
   onWatchListMemberChange(){
     console.log('WatchList Member selected: ' + this.selectedMember);
   }
+
 
 
   // WatchList search

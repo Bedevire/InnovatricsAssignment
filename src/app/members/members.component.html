@@ -1,7 +1,8 @@
     
+<h1>Watchlists</h1>
 <div id="watchList" class="row">
     <div id="watchListForm" class="block">
-        <h2>Watchlist form</h2>    
+        <h3>Watchlist form</h3>
         <p>
             <label class="formLabel">Display Name: </label>
             <br />
@@ -25,7 +26,7 @@
     <div class="block"></div>
 
     <div id="watchlists">
-        <h2>Watchlists</h2>
+        <h3>Watchlists</h3>
         <ul class="itemGrid">
             <li>
                 <span class="badge guid">ID</span>
@@ -46,10 +47,10 @@
 </div>
 <br class="clear" />
 
-
+<h1>Watchlist Members</h1>
 <div id="watchlistMember" class="row">
-    <div id="registerMember" class="block">
-        <h2>Register Watchlist member</h2>
+    <!-- <div id="registerMember" class="block">
+        <h3>Register Watchlist member</h3>
         <p>
             <span>WatchList</span>
             <br class="clear" />
@@ -77,10 +78,9 @@
         <p>
             <button id="registerMember" type="button" (click)="registerMemberToWatchList()" >Register Member</button>
         </p>
-    </div>
-
+    </div> -->
     <div id="addMember" class="block">
-        <h2>Add Member</h2>
+        <h3>Add Member</h3>
         <p>
             <span>WatchList</span>
             <br class="clear" />
@@ -111,8 +111,11 @@
         </p>
     </div>
 
+    <div class="block"></div>
+
+
     <div id="members" class="block2">
-        <h2>Watchlist members</h2>
+        <h3>Watchlist members</h3>
         <ul class="itemGrid">
             <li>
                 <span class="badge guid">ID</span>
@@ -133,10 +136,50 @@
 </div>
 <br class="clear" />
 
+<h1>Watchlist Member Registrations</h1>
+<div id="watchlistRegistration" class="row">
+    <div id="registerMember" class="block">
+        <!-- <h3>Register Watchlist member</h3> -->
+        <p>
+            <span>WatchList</span>
+            <br class="clear" />
+            <select id="ddlWatchList" [(ngModel)]="selectedWatchList4" (change)="getWatchListRegistrations()">
+                <option id=""></option>
+                <option *ngFor="let watchList of watchLists" [ngValue]="watchList.id" >
+                    <span>{{ watchList.displayName }}</span>
+                </option>
+            </select>
+        </p>                        
+    </div>
 
+    <div class="block"></div>
+
+    <div id="members" class="block2">
+        <h3>Watchlist members</h3>
+        <ul class="itemGrid">
+            <li>
+                <span class="badge guid">ID</span>
+                <span class="name">Name</span>
+                <span class="">Full Name</span>
+                <span class="">Note</span>
+                <span></span>
+            </li>
+            <li *ngFor="let watchListMember of watchListRegistrations">
+                <span class="badge guid">{{ watchListMember.id }}</span>
+                <span class="name">{{ watchListMember.displayName }}</span>
+                <span class="">{{ watchListMember.fullName }}</span>
+                <span class="">{{ watchListMember.note }}</span>
+                <span>   </span>
+            </li>
+        </ul>
+    </div>
+</div>
+<br class="clear" />
+
+<!-- <h1>Watchlist Search</h1>
 <div id="watchListSearch" class="row">
     <div id="searchForm" class="block">
-        <h2>WatchList Search</h2>
+        <h3>WatchList Search</h3>
         <p>
             <span class="formLabel">WatchList</span>
             <br />
@@ -163,7 +206,7 @@
     <div class="block"></div>
 
     <div id="searchResults">
-        <h2>Results</h2>
+        <h3>Results</h3>
         <ul class="itemGrid">
             <li>
                 <span class="badge guid">Name</span>
@@ -181,5 +224,5 @@
             </li>
         </ul>
     </div>
-</div>
+</div> -->
 

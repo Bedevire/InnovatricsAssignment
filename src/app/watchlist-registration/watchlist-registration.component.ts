@@ -55,12 +55,11 @@ export class WatchlistRegistrationComponent implements OnInit {
       valid = false;
     }
 
-    debugger;
     if(this.isEmpty(this.file.name)){
 
       valid = false;
     }
-    
+
     return valid;
   }
 
@@ -118,27 +117,49 @@ export class WatchlistRegistrationComponent implements OnInit {
     });
   }
 
-
-
-  createWatchListMember(watchListMember: WatchListMember): void{
-    this.httpService.createWatchListMember(watchListMember).subscribe((result: any) => {
-      
-    });
+  registerMemberToWatchList(){
+    debugger;
+    this.httpService.registerMemberToWatchList(this.selectedMemberId, this.selectedWatchListId, this.file);
+    //this.selectedMemberId = '0';
+    //this.selectedWatchListId = '0';
   }
 
-  registerMemberToWatchList(){
+  registerMemberToWatchListClick(){
 
-    const watchListMember: WatchListMember = {
-      id: "",
-      displayName: this.selectedMemberId,
-      fullName: this.selectedMemberId,
-      note: ""
-    };
+    // If the watchlistId is 0, then we must create it first
+    if(this.selectedWatchListId == '0'){
+      debugger;
+      var watchList: WatchList = {
+        id: "",
+        displayName: this.selectedWatchListName,
+        fullName: this.selectedWatchListName,
+        previewColor: "#aaaaaa",
+        threshold: "20"
+      };
+      this.httpService.createWatchList(watchList).subscribe((result: any) => {
+        this.selectedWatchListId = result.id;
+        if(this.selectedMemberId != '0'){
+          this.registerMemberToWatchList();
+        }
+      });
+    }
+    // If the watchlistMemberId is 0, then we must create it first
+    if(this.selectedMemberId == '0'){      
+      debugger;
+      var watchListMember: WatchListMember = {
+        id: "",
+        displayName: this.selectedMemberName,
+        fullName: this.selectedMemberName,
+        note: ""
+      }
 
-    this.httpService.createWatchListMember(watchListMember).subscribe((result: any) => {
-      var newMemberId: string = result.id;
-      this.httpService.registerMemberToWatchList(result.id, this.selectedWatchListId, this.file);
-    });
+      this.httpService.createWatchListMember(watchListMember).subscribe((result: any) => {
+        this.selectedMemberId = result.id;
+        if(this.selectedWatchListId != '0'){
+          this.registerMemberToWatchList();
+        }
+      });
+    }
   }
 
   onWatchListChange(){
