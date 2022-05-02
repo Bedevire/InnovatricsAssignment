@@ -43,15 +43,15 @@
         <h2>Watchlist members</h2>
         <ul class="itemGrid">
             <li>
-                <span class="badge guid">ID</span>
-                <span class="name">Name</span>
+                <!-- <span class="badge guid">ID</span> -->
+                <span class="badge guid">Name</span>
                 <span class="">Full Name</span>
                 <span class="">Note</span>
                 <span></span>
             </li>
             <li *ngFor="let watchListMember of watchListMembers">
-                <span class="badge guid">{{ watchListMember.id }}</span>
-                <span class="name">{{ watchListMember.displayName }}</span>
+                <!-- <span class="badge guid">{{ watchListMember.id }}</span> -->
+                <span class="badge guid">{{ watchListMember.displayName }}</span>
                 <span class="">{{ watchListMember.fullName }}</span>
                 <span class="">{{ watchListMember.note }}</span>
                 <button class="delete" type="button" (click)="deleteWatchListMember(watchListMember.id)">Delete</button>

@@ -1,1 +1,62 @@
-<p>watchlist-search works!</p>
+<div id="watchListSearch" class="row">
+    <div id="searchForm" class="block">
+        <h3>WatchList Search</h3>
+        <p>
+            <span class="formLabel">WatchList</span>
+            <br />
+            <select id="ddlWatchList" [(ngModel)]="selectedWatchListId">
+                <option id=""></option>
+                <option *ngFor="let watchList of watchLists" [ngValue]="watchList.id" >
+                    <span>{{ watchList.displayName }}</span>
+                </option>
+            </select>
+        </p>
+        <p>
+           <span class="formLabel">Threshold</span>
+           <br />
+           <input id="memberDisplayName" type="number" [(ngModel)] = "threshold" />
+        </p>
+        <p>
+            <span class="formLabel">Min face size</span>
+            <br />
+            <input id="memberDisplayName" type="number" [(ngModel)] = "minFaceSize" />
+         </p>
+         <p>
+            <span class="formLabel">Max face size</span>
+            <br />
+            <input id="memberDisplayName" type="number" [(ngModel)] = "maxFaceSize" />
+         </p>
+        <div class="text-center">
+            <input class="form-control" type="file" (change)="onFileUploadChange($event)">
+            <button class="btn btn-success hidden" (click)="onUpload()">Upload</button>
+        </div>
+        <p>
+            <button [disabled]="!formValid()" id="btnSearch" type="button" (click)="search()" >Search</button>
+        </p>
+    </div>
+    <div class="block"></div>
+
+    <div id="searchResults">
+        <h3>Results</h3>
+        <ul class="itemGrid">
+            <li>
+                <span class="badge guid">Name</span>
+                <span class="name">Age</span>
+                <span>Score</span>
+                <span>Left Eye</span>
+                <span>Right Eye</span>
+            </li>
+            <li *ngFor="let matchResult of matchResults">
+                <span class="badge guid">{{ matchResult.fullName }}</span>
+                <span class="name">{{ matchResult.age | number:'1.0-0' }}</span>
+                <span>{{ matchResult.score | number:'1.0-0' }}</span>
+                <span>{{ matchResult.leftEyeX | number:'1.0-0' }} : {{ matchResult.leftEyeY | number:'1.0-0' }}</span>
+                <span>{{ matchResult.rightEyeX | number:'1.0-0' }} : {{ matchResult.rightEyeY | number:'1.0-0' }}</span>                
+            </li>            
+        </ul>
+        <p *ngIf="loading"> --- LOADING --- </p>
+        <p *ngIf="matchResults.length == 0 && !loading">... No results</p>
+    </div>
+</div>
+
+

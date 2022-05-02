@@ -1,13 +1,12 @@
 <h1>{{ title }}</h1>
 
 <nav>
-    <ul>
-        <li><a routerLink="resitration-route" routerLinkActive="active">Register o Watchlist</a></li>
-        <li><a routerLink="search-route" routerLinkActive="active">Search in Watchlist</a></li>
-        <li><a routerLink="debug-route" routerLinkActive="active">Debug</a></li>
+    <ul class="mainMenu">
+        <li class="mainMenuItem"><a routerLink="resitration">Register to Watchlist</a></li>
+        <li class="mainMenuItem"><a routerLink="search">Search in Watchlists</a></li>
+        <li class="mainMenuItem"><a routerLink="debug">Debug</a></li>
     </ul>
 </nav>
 
 <router-outlet></router-outlet>
 
-<!-- <app-members></app-members> -->

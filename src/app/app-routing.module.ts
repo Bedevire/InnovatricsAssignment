@@ -6,10 +6,10 @@ import { MembersComponent } from './members/members.component';
 import { AppComponent } from './app.component';
 
 const routes: Routes = [
-  {path: '', component: AppComponent},
-  {path: 'resitration-route', component: WatchlistRegistrationComponent},
-  {path: 'search-route', component: WatchlistSearchComponent},
-  {path: 'debug-route', component: MembersComponent}
+  {path: '*', component: AppComponent},
+  {path: 'resitration', component: WatchlistRegistrationComponent},
+  {path: 'search', component: WatchlistSearchComponent},
+  {path: 'debug', component: MembersComponent}
 ];
 
 @NgModule({

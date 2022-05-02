@@ -13,11 +13,13 @@ import { WatchListMember } from './dal/watchlistmember';
 })
 export class HttpService {
 
+  apiUrl: string = 'http://localhost:8098/api/v1/';
+
   constructor(private httpClient: HttpClient) { }
 
   // WatchList
   getWatchLists(): Observable<any> {    
-    return this.httpClient.get('http://localhost:8098/api/v1/Watchlists');
+    return this.httpClient.get(this.apiUrl + 'Watchlists');
   } 
 
   createWatchList(watchList: WatchList){
@@ -29,7 +31,7 @@ export class HttpService {
       })
     };
 
-    return this.httpClient.post('http://localhost:8098/api/v1/Watchlists', watchList, httpOptions);
+    return this.httpClient.post(this.apiUrl + 'Watchlists', watchList, httpOptions);
   }
 
   deleteWatchList(id: string){
@@ -40,17 +42,17 @@ export class HttpService {
       })
     };
 
-    return this.httpClient.delete('http://localhost:8098/api/v1/Watchlists/' + id);
+    return this.httpClient.delete(this.apiUrl + 'Watchlists/' + id);
   }
 
 
   // WatchList Members
   getWatchListMembers(): Observable<any>{
-    return this.httpClient.get('http://localhost:8098/api/v1/WatchlistMembers');
+    return this.httpClient.get(this.apiUrl + 'WatchlistMembers');
   }
 
   getWatchListRegistrations(watchListId: string): Observable<any>{
-    return this.httpClient.get('http://localhost:8098/api/v1/Watchlists/' + watchListId + '/WatchlistMembers');
+    return this.httpClient.get(this.apiUrl + 'Watchlists/' + watchListId + '/WatchlistMembers');
   }
 
   createWatchListMember(watchListMember: WatchListMember){
@@ -61,11 +63,11 @@ export class HttpService {
       })
     };    
 
-    return this.httpClient.post('http://localhost:8098/api/v1/WatchlistMembers', watchListMember, httpOptions);
+    return this.httpClient.post(this.apiUrl + 'WatchlistMembers', watchListMember, httpOptions);
   }
 
   deleteWatchListMember(id: string){
-    return this.httpClient.delete('http://localhost:8098/api/v1/WatchlistMembers/' + id);
+    return this.httpClient.delete(this.apiUrl + 'WatchlistMembers/' + id);
   }
 
   registerMemberToWatchList(memberId: string, watchListId: string, imageFile: File){
@@ -109,7 +111,7 @@ export class HttpService {
           "keepAutoLearnPhotos": false
         }
     
-        self.httpClient.post('http://localhost:8098/api/v1/WatchlistMembers/Register', json, httpOptions).subscribe((result2: any) => {          
+        self.httpClient.post(self.apiUrl + 'WatchlistMembers/Register', json, httpOptions).subscribe((result2: any) => {          
           window.location.reload();
         });
       }
@@ -129,6 +131,6 @@ export class HttpService {
       })
     };
 
-    return this.httpClient.post('http://localhost:8098/api/v1/Watchlists/Search', json, httpOptions);     
+    return this.httpClient.post(this.apiUrl + 'Watchlists/Search', json, httpOptions);     
   }
 }

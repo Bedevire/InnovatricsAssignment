@@ -7,7 +7,7 @@ declare var $: any;
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  title = 'Innovatrics App2';
+  title = 'Innovatrics Assignment';
 
   constructor(){}
 

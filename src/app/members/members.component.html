@@ -1,32 +1,7 @@
     
 <h1>Watchlists</h1>
-<div id="watchList" class="row">
-    <div id="watchListForm" class="block">
-        <h3>Watchlist form</h3>
-        <p>
-            <label class="formLabel">Display Name: </label>
-            <br />
-            <input id="watchListDisplayName" type="text" [(ngModel)] = "watchList.displayName" class="ng-pristine" />
-        </p>
-        <p>
-            <span class="formLabel">Full Name: </span>
-            <br />
-            <input id="watchListDisplayName" type="text" [(ngModel)] = "watchList.fullName" />
-        </p>
-        <p>
-            <span class="formLabel">Treshold: </span>
-            <br />
-            <input id="watchListTreshold" type="number" [(ngModel)] = "watchList.threshold" />
-        </p>
-        <p>
-            <button id="submitWatchList" type="button" value="Submit" (click)="createWatchList(watchList)" >Add Watchlist</button>
-        </p>  
-    </div>
-
-    <div class="block"></div>
-
+<div id="watchList" class="row">    
     <div id="watchlists">
-        <h3>Watchlists</h3>
         <ul class="itemGrid">
             <li>
                 <span class="badge guid">ID</span>
@@ -49,71 +24,6 @@
 
 <h1>Watchlist Members</h1>
 <div id="watchlistMember" class="row">
-    <!-- <div id="registerMember" class="block">
-        <h3>Register Watchlist member</h3>
-        <p>
-            <span>WatchList</span>
-            <br class="clear" />
-            <select id="ddlWatchList" [(ngModel)]="selectedWatchList1" (change)="onWatchListChange()">
-                <option id=""></option>
-                <option *ngFor="let watchList of watchLists" [ngValue]="watchList.id" >
-                    <span>{{ watchList.displayName }}</span>
-                </option>
-            </select>
-        </p>
-        <p>
-            <span>Member</span>
-            <br class="clear" />
-            <select id="ddlWatchListMember" [(ngModel)]="selectedMember" (change)="onWatchListMemberChange()">
-                <option id=""></option>
-                <option *ngFor="let watchListMember of watchListMembers" [ngValue]="watchListMember.id">
-                    <span>{{ watchListMember.displayName }}</span>
-                </option>
-            </select>
-        </p>
-        <div class="text-center">
-            <input class="form-control" type="file" (change)="onFileUploadChange($event)">
-            <button class="btn btn-success hidden" (click)="onUpload()">Upload</button>
-        </div>
-        <p>
-            <button id="registerMember" type="button" (click)="registerMemberToWatchList()" >Register Member</button>
-        </p>
-    </div> -->
-    <div id="addMember" class="block">
-        <h3>Add Member</h3>
-        <p>
-            <span>WatchList</span>
-            <br class="clear" />
-            <select id="ddlWatchList" [(ngModel)]="selectedWatchList2" (change)="onWatchListChange()">
-                <option id=""></option>
-                <option *ngFor="let watchList of watchLists" [ngValue]="watchList.id" id="{{ watchList.id }}">
-                    <span>{{ watchList.displayName }}</span>
-                </option>
-            </select>
-        </p>
-        <p>
-            <span>Display Name: </span>
-            <br />
-            <input id="memberDisplayName" type="text" [(ngModel)] = "watchListMember.displayName" />
-        </p>
-        <p>
-            <span>Full Name: </span>
-            <br />
-            <input id="memberFullName" type="text" [(ngModel)] = "watchListMember.fullName" />
-        </p>
-        <p>
-            <span>Note: </span>
-            <br />
-            <input  id="memberNote" type="text" [(ngModel)] = "watchListMember.note" />
-        </p>            
-        <p>
-            <button id="submitMember" type="button" class="" (click)="createWatchListMember(watchListMember)" >Submit Member</button>                
-        </p>
-    </div>
-
-    <div class="block"></div>
-
-
     <div id="members" class="block2">
         <h3>Watchlist members</h3>
         <ul class="itemGrid">
@@ -138,8 +48,7 @@
 
 <h1>Watchlist Member Registrations</h1>
 <div id="watchlistRegistration" class="row">
-    <div id="registerMember" class="block">
-        <!-- <h3>Register Watchlist member</h3> -->
+    <div id="registerMember" class="block">        
         <p>
             <span>WatchList</span>
             <br class="clear" />
@@ -152,77 +61,22 @@
         </p>                        
     </div>
 
-    <div class="block"></div>
-
     <div id="members" class="block2">
-        <h3>Watchlist members</h3>
+        <h3>Registrations</h3>
         <ul class="itemGrid">
             <li>
                 <span class="badge guid">ID</span>
                 <span class="name">Name</span>
                 <span class="">Full Name</span>
                 <span class="">Note</span>
-                <span></span>
             </li>
             <li *ngFor="let watchListMember of watchListRegistrations">
                 <span class="badge guid">{{ watchListMember.id }}</span>
                 <span class="name">{{ watchListMember.displayName }}</span>
                 <span class="">{{ watchListMember.fullName }}</span>
                 <span class="">{{ watchListMember.note }}</span>
-                <span>   </span>
             </li>
         </ul>
     </div>
 </div>
 <br class="clear" />
-
-<!-- <h1>Watchlist Search</h1>
-<div id="watchListSearch" class="row">
-    <div id="searchForm" class="block">
-        <h3>WatchList Search</h3>
-        <p>
-            <span class="formLabel">WatchList</span>
-            <br />
-            <select id="ddlWatchList" [(ngModel)]="selectedWatchList3" (change)="onWatchListChange()">
-                <option id=""></option>
-                <option *ngFor="let watchList of watchLists" [ngValue]="watchList.id" >
-                    <span>{{ watchList.displayName }}</span>
-                </option>
-            </select>
-        </p>
-        <p>
-           <span class="formLabel">Threshold</span>
-           <br />
-           <input id="memberDisplayName" type="number" [(ngModel)] = "threshold" />
-        </p>
-        <div class="text-center">
-            <input class="form-control" type="file" (change)="onFileUploadChange($event)">
-            <button class="btn btn-success hidden" (click)="onUpload()">Upload</button>
-        </div>
-        <p>
-            <button id="btnSearch" type="button" (click)="search()" >Search</button>
-        </p>
-    </div>
-    <div class="block"></div>
-
-    <div id="searchResults">
-        <h3>Results</h3>
-        <ul class="itemGrid">
-            <li>
-                <span class="badge guid">Name</span>
-                <span class="name">Age</span>
-                <span>Score</span>
-                <span>Left Eye</span>
-                <span>Right Eye</span>
-            </li>
-            <li *ngFor="let matchResult of matchResults">
-                <span class="badge guid">{{ matchResult.age }}</span>
-                <span class="name">{{ matchResult.fullName }}</span>
-                <span>{{ matchResult.score }}</span>
-                <span>{{ matchResult.leftEyeX }} : {{ matchResult.leftEyeY }}</span>
-                <span>{{ matchResult.rightEyeX }} : {{ matchResult.rightEyeY }}</span>
-            </li>
-        </ul>
-    </div>
-</div> -->
-
