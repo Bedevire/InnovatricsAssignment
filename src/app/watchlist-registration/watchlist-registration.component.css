@@ -1,0 +1,89 @@
+/* HeroesComponent's private CSS styles */
+.search input {
+    margin: 1rem 0;
+  }
+  
+  .itemGrid {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .itemGrid li {
+    display: grid;
+    grid-template-columns: min-content max-content 1fr max-content max-content;
+    grid-template-areas: "badge name . edit delete";
+    margin: 1rem 0;
+    align-items: center;
+    background-color: #eee;
+    border-radius: 4px;
+  }
+  
+  .itemGrid li .badge {
+    grid-area: badge;
+  }
+  
+  .itemGrid li .name {
+    grid-area: name;
+  }
+
+  .itemGrid li .none {
+    grid-area: none;
+  }
+  
+  .itemGrid li button {
+    margin: 0.3rem;
+    padding: 0.3rem 0.8rem;
+  }
+  
+  .itemGrid li button.edit {
+    grid-area: edit;
+  }
+  
+  .itemGrid li button.delete {
+    grid-area: delete;
+  }
+  
+  .itemGrid li button:hover, .heros li button:focus {
+    color: #eee;
+    background-color: #000;
+  }
+  
+  .itemGrid .badge {
+    padding: 0.5rem 0.6rem;
+    color: white;
+    background-color: #435B60;
+    margin-right: 0.8rem;
+    border-radius: 4px 0 0 4px;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+  }
+  
+  .itemGrid input {
+    max-width: 12rem;
+    padding: .25rem;
+  }
+  
+  @media (max-width: 550px) {
+    .itemGrid li {
+      grid-template-columns: min-content 1fr 1fr;
+      grid-template-rows: 2rem max-content;
+      grid-template-areas:
+        "badge name name"
+        "badge edit delete";
+    }
+  
+    .itemGrid li .name {
+      margin-top: 0.3rem;
+    }
+  
+    .itemGrid li button {
+      justify-self: center;
+    }
+  }
+  
+  /*
+  Copyright Google LLC. All Rights Reserved.
+  Use of this source code is governed by an MIT-style license that
+  can be found in the LICENSE file at https://angular.io/license
+  */

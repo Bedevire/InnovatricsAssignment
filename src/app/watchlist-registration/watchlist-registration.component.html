@@ -1,1 +1,63 @@
-<p>watchlist-registration works!</p>
+<div id="watchlistMember" class="row">
+
+    <div id="registerMember" class="block">
+        <h2>Register Watchlist member</h2>
+        <p>
+            <span>WatchList</span>
+            <br class="clear" />
+            <select id="ddlWatchList" [(ngModel)]="selectedWatchListId" (change)="onWatchListChange()">
+                <option value="0"> + Add Watchlist</option>
+                <option *ngFor="let watchList of watchLists" [ngValue]="watchList.id" >
+                    <span>{{ watchList.displayName }}</span>
+                </option>
+            </select>
+        </p>
+        <p *ngIf="selectedWatchListId == '0'">
+            <input type="text" required [(ngModel)]="selectedWatchListName" placeholder="Watchlist name" />
+        </p>
+        <p>
+            <span>Member</span>
+            <br class="clear" />
+            <select id="ddlWatchListMember" [(ngModel)]="selectedMemberId" (change)="onWatchListMemberChange()">
+                <option value="0"> + Add Member</option>
+                <option *ngFor="let watchListMember of watchListMembers" [ngValue]="watchListMember.id">
+                    <span>{{ watchListMember.displayName }}</span>
+                </option>
+            </select>
+        </p>
+        <p *ngIf="selectedMemberId == '0'">            
+            <input type="text" required [(ngModel)]="selectedMemberName" placeholder="Member name" />
+        </p>
+        <div class="text-center">
+            <input class="form-control" type="file" (change)="onFileUploadChange($event)">
+            <button class="btn btn-success hidden" (click)="onUpload()">Upload</button>
+        </div>
+        <p>
+            <button [disabled]="!formValid()" id="registerMember" type="button" (click)="registerMemberToWatchList()" >Register Member</button>
+        </p>
+    </div>
+
+    <div class="block"></div>
+
+    <div id="members" class="block2">
+        <h2>Watchlist members</h2>
+        <ul class="itemGrid">
+            <li>
+                <span class="badge guid">ID</span>
+                <span class="name">Name</span>
+                <span class="">Full Name</span>
+                <span class="">Note</span>
+                <span></span>
+            </li>
+            <li *ngFor="let watchListMember of watchListMembers">
+                <span class="badge guid">{{ watchListMember.id }}</span>
+                <span class="name">{{ watchListMember.displayName }}</span>
+                <span class="">{{ watchListMember.fullName }}</span>
+                <span class="">{{ watchListMember.note }}</span>
+                <button class="delete" type="button" (click)="deleteWatchListMember(watchListMember.id)">Delete</button>
+            </li>
+        </ul>
+    </div>
+
+</div>
+<br class="clear" />

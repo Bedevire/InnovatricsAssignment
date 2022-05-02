@@ -9,6 +9,7 @@ import { HttpService } from '../http.service';
   templateUrl: './members.component.html',
   styleUrls: ['./members.component.css']
 })
+
 export class MembersComponent implements OnInit {
 
   selectedWatchList1: string = "";
@@ -43,10 +44,9 @@ export class MembersComponent implements OnInit {
     displayName: "",
     fullName: "",
     note: ""
-  }
+  };
 
-  constructor(
-    private httpService: HttpService) { }
+  constructor(private httpService: HttpService) { }
 
   //@ViewChild(HttpService) myService;
 

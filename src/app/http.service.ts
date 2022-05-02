@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from "rxjs";
+import { EMPTY, empty, of } from "rxjs";
+import { from } from 'rxjs';
 import { SelectControlValueAccessor } from '@angular/forms';
 import { WatchList } from './dal/watchlist';
 import { HttpHeaders } from '@angular/common/http';
@@ -12,11 +14,6 @@ import { WatchListMember } from './dal/watchlistmember';
 export class HttpService {
 
   constructor(private httpClient: HttpClient) { }
-
-  getConfig(){
-    return this.httpClient.get('http://localhost:8098/swagger/v1/swagger.json');
-  }
-
 
   // WatchList
   getWatchLists(): Observable<any> {    
@@ -58,12 +55,9 @@ export class HttpService {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       })
-    };
+    };    
 
-    this.httpClient.post('http://localhost:8098/api/v1/WatchlistMembers', watchListMember, httpOptions).subscribe(res =>{
-      console.log('WatchList member Created');
-      window.location.reload();
-    });
+    return this.httpClient.post('http://localhost:8098/api/v1/WatchlistMembers', watchListMember, httpOptions);
   }
 
   deleteWatchListMember(id: string){
@@ -87,8 +81,7 @@ export class HttpService {
     reader.addEventListener('load', function(){
       if(reader.result != null){
         imageData = reader.result as string;
-        imageData = imageData.substring(imageData.indexOf('base64') + 7)
-        debugger;
+        imageData = imageData.substring(imageData.indexOf('base64') + 7)        
     
         var json: any = {
           "id": memberId,
@@ -112,17 +105,17 @@ export class HttpService {
           "keepAutoLearnPhotos": false
         }
     
-        self.httpClient.post('http://localhost:8098/api/v1/WatchlistMembers/Register', json, httpOptions).subscribe(res => {
-    
+        self.httpClient.post('http://localhost:8098/api/v1/WatchlistMembers/Register', json, httpOptions).subscribe((result2: any) => {
+          debugger;
+          window.location.reload();
+
         });
       }
     }, false);
     
-
     if(imageFile){
       reader.readAsDataURL(imageFile);
     }
-
   }
 
   searchWatchList(json: string){
